@@ -1,0 +1,125 @@
+<div class="fs-3 fw-bolder text-white d-flex align-items-center justify-content-center p-4 sign-up-form-heading">Sign Up
+</div>
+<div class="container-fluid d-flex justify-content-center align-items-center p-4">
+      <div class="sign-up-form d-flex justify-content-center align-items-center flex-column">
+            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+
+                  <!-- Name Field -->
+                  <mat-form-field appearance="outline" class="w-100 mt-3">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Enter your name" formControlName="name">
+                        <mat-error
+                              *ngIf="signUpForm.get('name')?.hasError('required') && signUpForm.get('name')?.touched">
+                              {{ errorMessages.NAME_REQUIRED }}
+                        </mat-error>
+                  </mat-form-field>
+
+                  <!-- Email Field -->
+                  <mat-form-field appearance="outline" class="w-100 mt-3">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" placeholder="Enter your email" formControlName="email">
+                        <mat-error
+                              *ngIf="signUpForm.get('email')?.hasError('required') && signUpForm.get('email')?.touched">
+                              {{ errorMessages.EMAIL_REQUIRED }}
+                        </mat-error>
+                        <mat-error
+                              *ngIf="signUpForm.get('email')?.hasError('email') && signUpForm.get('email')?.touched">
+                              {{ errorMessages.EMAIL_INVALID }}
+                        </mat-error>
+                  </mat-form-field>
+
+                  <!-- Mobile Field -->
+                  <mat-form-field appearance="outline" class="w-100 mt-3">
+                        <mat-label>Mobile</mat-label>
+                        <input matInput type="tel" placeholder="Enter your mobile" formControlName="mobile"
+                              maxlength="10">
+                        <mat-error
+                              *ngIf="signUpForm.get('mobile')?.hasError('required') && signUpForm.get('mobile')?.touched">
+                              {{ errorMessages.MOBILE_REQUIRED }}
+                        </mat-error>
+                        <mat-error
+                              *ngIf="signUpForm.get('mobile')?.hasError('pattern') && signUpForm.get('mobile')?.touched">
+                              {{ errorMessages.MOBILE_DIGIT_ERROR}}
+                        </mat-error>
+                  </mat-form-field>
+
+                  <!-- Gender Field -->
+                  <mat-form-field appearance="outline" class="w-100 mt-3">
+                        <mat-label>Gender</mat-label>
+                        <mat-select formControlName="gender">
+                              <mat-option value="Male">Male</mat-option>
+                              <mat-option value="Female">Female</mat-option>
+                              <mat-option value="Other">Other</mat-option>
+                        </mat-select>
+                        <mat-error
+                              *ngIf="signUpForm.get('gender')?.hasError('required') && signUpForm.get('gender')?.touched">
+                              {{ errorMessages.GENDER_REQUIRED }}
+                        </mat-error>
+                  </mat-form-field>
+
+                  <!-- Date of Birth Field -->
+                  <mat-form-field appearance="outline" class="w-100 mt-3">
+                        <mat-label>Date of Birth</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="dob">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error
+                              *ngIf="signUpForm.get('dob')?.hasError('required') && signUpForm.get('dob')?.touched">
+                              {{ errorMessages.DOB_REQUIRED }}
+                        </mat-error>
+                        <mat-error
+                              *ngIf="signUpForm.get('dob')?.hasError('ageInvalid') && signUpForm.get('dob')?.touched">
+                              You must be at least 18 years old.
+                        </mat-error>
+                  </mat-form-field>
+
+                  <!-- Password Field -->
+                  <mat-form-field appearance="outline" class="w-100 mt-3">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Enter your password"
+                              formControlName="password">
+                        <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                              [attr.aria-pressed]="hide">
+                              <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                        </button>
+                        <mat-error
+                              *ngIf="signUpForm.get('password')?.hasError('required') && signUpForm.get('password')?.touched">
+                              {{ errorMessages.REQUIRED }}
+                        </mat-error>
+                  </mat-form-field>
+
+                  <!-- Confirm Password Field -->
+                  <mat-form-field appearance="outline" class="w-100 mt-3">
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput type="password" placeholder="Confirm your password"
+                              formControlName="confirmPassword">
+                        <mat-error
+                              *ngIf="signUpForm.get('confirmPassword')?.hasError('required') && signUpForm.get('confirmPassword')?.touched">
+                              {{ errorMessages.REQUIRED }}
+                        </mat-error>
+
+                        <!-- Display error for password mismatch at the form level -->
+                        <mat-error
+                              *ngIf="signUpForm.hasError('passwordMismatch') && signUpForm.get('confirmPassword')?.touched">
+                              {{ errorMessages.PASSWORD_MISMATCH }}
+                        </mat-error>
+                  </mat-form-field>
+
+                  <!-- Profile Picture Field -->
+                  <div class="w-100 mt-3">
+                        <mat-label class="fw-medium">Profile Picture</mat-label>
+                        <input type="file" (change)="onFileSelected($event)" accept="image/*" #fileInput hidden />
+                        <button mat-raised-button color="warn" type="button" class="choose-file-btn"
+                              (click)="onChooseFileClick()">Choose File</button>
+                        <mat-error
+                              *ngIf="signUpForm.get('profilePic')?.hasError('required') && signUpForm.get('profilePic')?.touched">
+                              {{ errorMessages.PROFILE_PIC_REQUIRED }}
+                        </mat-error>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <button mat-raised-button color="primary" type="submit" class="w-100 mt-4">Sign Up</button>
+                  <button mat-button mat-dialog-close class="w-100 mt-3">Cancel</button>
+            </form>
+      </div>
+</div>
