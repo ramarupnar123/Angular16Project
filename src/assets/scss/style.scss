@@ -1,0 +1,22 @@
+.mat-card {
+      width: 400px;
+      background: #fff !important;
+      border-radius: 0 !important;
+}
+
+.mat-card-sign-up {
+      width: 400px;
+      background: #673ab7 !important;
+      border-radius: 0 !important;
+}
+
+.mat-form-field .mat-mdc-form-field-hint-wrapper,
+.mat-mdc-form-field-error-wrapper {
+      padding: 0 !important;
+}
+
+.custom-snack-bar .mat-mdc-snack-bar-container .mdc-snackbar__surface{
+      background-color: #4caf50 !important;
+      color: white !important;
+      font-weight: bold !important;
+}
